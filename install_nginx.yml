@@ -1,0 +1,70 @@
+#playbook for install nginx on RedHat or Ubuntu
+
+---
+- hosts: webservers
+  vars:
+    http_port: 80
+    
+  tasks:
+# add repository if RedHat OS 
+   - name: add nginx repository
+     yum_repository:
+      name: nginx-repo
+      description: NGINX repository 
+      baseurl: http://nginx.org/packages/rhel/6/i386/
+      gpgcheck: no
+      enabled: yes 
+     when: ansible_distribution == 'RedHat'
+     tags: install_nginx_repo
+     
+   - name: install nginx on ubuntu
+     apt:
+      name: nginx
+      state: installed
+     when: ansible_distribution == 'Ubuntu'
+     notify:  "restart nginx server"
+     tags: install_nginx
+     
+   - name: install nginx on rehat 
+     yum:
+      name: nginx
+      state: installed
+     when: ansible_distribution == 'RedHat'
+     notify:  "restart nginx server"
+     tags: install_nginx
+
+   - name: delete nginx on ubuntu
+     apt:
+      name: nginx
+      state: absent
+     when: ansible_distribution == 'Ubuntu'
+     tags: delete_nginx
+     
+   - name: delete  nginx on rehat 
+     yum:
+      name: nginx
+      state: absent
+     when: ansible_distribution == 'RedHat'
+     tags: delete_nginx
+     
+   - name: ensure ngix is stopped
+     service:
+      name: nginx
+      state: stopped
+     tags: delete_nginx
+
+   - name: ensure ngix is runing (and enable it at boot)
+     service:
+      name: nginx
+      state: started
+      enabled: yes 
+     tags: install_nginx
+       
+ 
+      
+  handlers:
+    - name: restart nginx
+      service:
+       name: nginx
+       state: restarted
+      listen: "restart nginx server"
