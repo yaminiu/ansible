@@ -1,0 +1,51 @@
+---
+
+- name: Example using ternary() function
+  hosts: localhost
+  gather_facts: no
+  vars:
+    condition: true
+    yaml_data:
+      key1: value1
+      key2:
+        - item1
+        - item2
+        - item3
+
+  tasks:
+    - name: Set result based on condition
+      set_fact:
+        result: "{{ ternary(condition, 'Condition is true', 'Condition is false') }}"
+
+    - debug:
+        var: result
+
+# use map example
+
+    - name: Read JSON file
+      ansible.builtin.include_vars:
+        file: file/map_example.json
+        name: user_data
+
+    - set_fact:
+        user_names: "{{ user_data.users | map(attribute='name') | list }}"
+
+    - debug:
+        var: user_names
+
+    - set_fact:
+        numbers: [1, 2, 3, 4, 5]
+
+    - set_fact:
+        squared_numbers: "{{ numbers | map('multiply', 2) | list }}"
+
+    - debug:
+        var: squared_numbers
+
+# convert yaml to json
+    - name: Convert YAML to JSON
+      set_fact:
+        json_data: "{{ yaml_data | to_json }}"
+
+    - debug:
+        var: json_data
