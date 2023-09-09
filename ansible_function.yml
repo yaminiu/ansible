@@ -37,7 +37,7 @@
     - set_fact:
         numbers: [1, 2, 3, 4, 5]
 
-    - name set squre list:
+    - name: set squre list
     - set_fact:
         squared_numbers: "{{ numbers | map('multiply', 2) | list }}"
 
