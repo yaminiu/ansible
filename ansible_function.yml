@@ -24,7 +24,7 @@
 
     - name: Read JSON file
       ansible.builtin.include_vars:
-        file: file/map_example.json
+        file: files/map_example.json
         name: user_data
 
     - set_fact:
