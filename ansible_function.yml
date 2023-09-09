@@ -39,7 +39,7 @@
 
     - name: set squre list
       set_fact:
-        squared_numbers: "{{ numbers | map('multiply', 2) | list }}"
+        squared_numbers: "{{ {{ numbers | map('math', '*', 2) | list }}"
 
     - debug:
         var: squared_numbers
