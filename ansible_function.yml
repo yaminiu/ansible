@@ -13,12 +13,12 @@
         - item3
 
   tasks:
-    - name: Set result based on condition
-      set_fact:
-        result: "{{ ternary(condition, 'Condition is true', 'Condition is false') }}"
+    # - name: Set result based on condition
+    #   set_fact:
+    #     result: "{{ ternary(condition, 'Condition is true', 'Condition is false') }}"
 
-    - debug:
-        var: result
+    # - debug:
+    #     var: result
 
 # use map example
 
@@ -49,3 +49,27 @@
 
     - debug:
         var: json_data
+
+    - name: Check if a file exists
+      set_fact:
+        file_exists: "{{ lookup('file', 'README.md') | bool }}"
+      ignore_errors: yes
+
+    - debug:
+        var: file_exists
+
+    - name: Get file size
+      set_fact:
+        file_size_bytes: "{{ lookup('file', '/path/to/your/file.txt') | filesize }}"
+      ignore_errors: yes
+
+    - debug:
+        var: file_size_bytes
+
+    - name: Get file permissions
+      set_fact:
+        file_permissions: "{{ lookup('file', '/path/to/your/file.txt') | fileattr('mode') }}"
+      ignore_errors: yes
+
+    - debug:
+        var: file_permissions
