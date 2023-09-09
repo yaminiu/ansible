@@ -37,4 +37,4 @@ jobs:
           pip install ansible
 
       - name: Run Ansible Playbook
-        run: ansible-playbook  -i localhost ansible_function.yml
+        run: ansible-playbook  -i inventory ansible_function.yml
