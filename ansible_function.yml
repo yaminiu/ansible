@@ -32,8 +32,8 @@
 
     - debug:
         var: user_names
-        
-    - name set list:
+
+    - name: set list
     - set_fact:
         numbers: [1, 2, 3, 4, 5]
 
