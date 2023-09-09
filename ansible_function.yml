@@ -37,9 +37,13 @@
       set_fact:
         numbers: [1, 2, 3, 4, 5]
 
-    - name: set squre list
+    - name: set squared list
       set_fact:
-        squared_numbers: "{{ numbers | map('math', '*', 2) | list }}"
+        squared_numbers: []
+
+    - set_fact:
+        squared_numbers: "{{ squared_numbers + [item * item] }}"
+      loop: "{{ numbers }}"
 
     - debug:
         var: squared_numbers
