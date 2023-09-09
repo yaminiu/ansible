@@ -60,7 +60,7 @@
 
     - name: Get file size
       set_fact:
-        file_size_bytes: "{{ lookup('file', '/path/to/your/file.txt') | filesize }}"
+        file_size_bytes: "{{ lookup('file', 'README.md') | filesize }}"
       ignore_errors: yes
 
     - debug:
@@ -68,7 +68,7 @@
 
     - name: Get file permissions
       set_fact:
-        file_permissions: "{{ lookup('file', '/path/to/your/file.txt') | fileattr('mode') }}"
+        file_permissions: "{{ lookup('file', 'files/map_example.json') | fileattr('mode') }}"
       ignore_errors: yes
 
     - debug:
