@@ -58,7 +58,7 @@
 
     - name: Check if a file exists
       set_fact:
-        file_exists: "{{ lookup('file', 'README.md') | bool }}"
+        file_exists: "{{ lookup('file', '../../README.md') | bool }}"
       ignore_errors: yes
 
     - debug:
@@ -66,7 +66,7 @@
 
     - name: Get file size
       set_fact:
-        file_size_bytes: "{{ lookup('file', 'README.md') | filesize }}"
+        file_size_bytes: "{{ lookup('file', '../../README.md') | filesize }}"
       ignore_errors: yes
 
     - debug:
@@ -74,7 +74,7 @@
 
     - name: Get file permissions
       set_fact:
-        file_permissions: "{{ lookup('file', 'files/map_example.json') | fileattr('mode') }}"
+        file_permissions: "{{ lookup('file', '../../files/map_example.json') | fileattr('mode') }}"
       ignore_errors: yes
 
     - debug:
