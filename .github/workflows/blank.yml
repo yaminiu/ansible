@@ -40,4 +40,4 @@ jobs:
         run: ansible --version
         
       - name: Run Ansible Playbook
-        run: ansible-playbook  -i inventory ansible_function.yml
+        run: ansible-playbook  -i inventory ansible_function.yml -vvv
