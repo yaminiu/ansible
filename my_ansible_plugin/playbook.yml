@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Demo of custom filter
+      debug:
+        msg: "{{ 'hello' | to_uppercase }}"
+
+    - name: Check if file exists
+      check_file_existence:
+        path: /etc/passwd
+      register: file_result
+
+    - debug:
+        msg: "File exists: {{ file_result.exists }}"
