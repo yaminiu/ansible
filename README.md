@@ -16,3 +16,25 @@ ok: [localhost] => {
 }
 
 ```
+
+# list of dictionary 
+
+```
+    test_var:
+      - name: test1
+        url: googe.com
+        port: "9092"
+      - name: test2
+        url: yahoo.com
+        port: "8080"
+      - name: test3
+        url: value31
+        port: '8081'
+```
+
+run 
+```
+ansible-playbook list_convert.yml
+
+```
+generate string  **"https://googe.com:9092,https://yahoo.com:8080,https://value31:8081"** which can be used in templates, useful in kafka application  configuration such as kafka mft etc.
