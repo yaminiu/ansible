@@ -1,0 +1,28 @@
+- name: Concatenate values
+  hosts: localhost
+  vars:
+    test_var:
+      - name: test1
+        url: googe.com
+        port: "9092"
+      - name: test2
+        url: yahoo.com
+        port: "8080"
+      - name: test3
+        url: value31
+        port: '8081'
+  tasks:
+    - set_fact:
+        concatenated_values: "{{ concatenated_values|default([]) + ['https://' + item.url + ':' + item.port] }}"
+      loop: "{{ test_var }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+    - debug:
+        var: concatenated_values
+
+    - set_fact: 
+        concatened_string: "{{ concatenated_values | join(',')  }}"
+
+    - debug:
+        var: concatened_string
